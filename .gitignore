@@ -1,2 +1,9 @@
 .idea
 .terraform
+
+/baekgwa-blog-key.pem
+/baekgwa-blog-key.pem.pub
+
+*.tfstate
+*.tfstate.*
+terraform.tfvars
