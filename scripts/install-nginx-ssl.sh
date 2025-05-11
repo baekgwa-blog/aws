@@ -12,7 +12,15 @@ cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 cat <<EOT > /etc/nginx/sites-available/default
 server {
     listen 80;
-    server_name suho.baekgwa.site;
+    server_name blog.baekgwa.site;
+
+    location /_next/ {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    }
 
     location / {
         proxy_pass http://localhost:3000;

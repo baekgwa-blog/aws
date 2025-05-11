@@ -17,4 +17,4 @@ chmod +x /usr/local/bin/docker-compose
 usermod -aG docker ubuntu
 
 # network 추가
-docker network inspect suho-network >/dev/null 2>&1 || docker network create suho-network
+docker network inspect baekgwa-network >/dev/null 2>&1 || docker network create baekgwa-network
