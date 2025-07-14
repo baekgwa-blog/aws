@@ -27,13 +27,13 @@ resource "aws_security_group" "ec2_sg" {
     cidr_blocks = var.allowed_http_cidr
   }
 
-#   ingress {
-#     description = "MySQL Access (3306, 내부 통신만 허용)"
-#     from_port   = 3306
-#     to_port     = 3306
-#     protocol    = "tcp"
-#     security_groups = [aws_security_group.ec2_sg.id]
-#   }
+  ingress {
+    description = "MySQL Access"
+    from_port   = 3360
+    to_port     = 3360
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_http_cidr
+  }
 
   egress {
     description = "Allow all outbound traffic"

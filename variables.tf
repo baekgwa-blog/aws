@@ -1,7 +1,7 @@
 variable "instance_type" {
   description = "EC2 인스턴스 타입"
   type        = string
-  default     = "t3.micro"
+  default     = "t3.small"
 }
 
 variable "key_name" {
@@ -57,3 +57,10 @@ variable "root_volume_type" {
   type        = string
   default     = "gp3"
 }
+
+# tfvars
+variable "rdbms_root_password" {}
+variable "rdbms_username" {}
+variable "rdbms_password" {}
+variable "rdbms_port" {}
+variable "mysql_query_log_path" {}

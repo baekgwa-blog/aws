@@ -20,6 +20,7 @@ server {
         proxy_set_header Host \$host;
         proxy_set_header X-Real-IP \$remote_addr;
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header Cookie \$http_cookie;
     }
 
     location / {
@@ -29,6 +30,21 @@ server {
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host \$host;
         proxy_cache_bypass \$http_upgrade;
+        proxy_set_header Cookie \$http_cookie;
+    }
+}
+
+server {
+    listen 80;
+    server_name blog.api.baekgwa.site;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header Cookie \$http_cookie;
     }
 }
 EOT
@@ -38,7 +54,15 @@ systemctl reload nginx
 
 # Certbot으로 SSL 인증서 발급 + 자동 nginx 설정
 while true; do
-  certbot --nginx -d blog.baekgwa.site --non-interactive --agree-tos -m ksu9801@gmail.com && break
+  certbot --nginx \
+    -d blog.baekgwa.site \
+    -d blog.api.baekgwa.site \
+    --non-interactive --agree-tos -m ksu9801@gmail.com && break
+
   echo "Certbot 실패, 5분 후 재시도..."
   sleep 300
 done
+
+# redirect method 기억하도록 308로 변경
+sed -i 's/return 301 /return 308 /g' /etc/nginx/sites-available/default
+nginx -t && systemctl reload nginx
