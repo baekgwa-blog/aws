@@ -16,4 +16,5 @@ ${install_docker}
 ${install_git}
 ${install_nginx}
 ${install_database}
+${install_aws_cli}
 ${register_backup_cron}

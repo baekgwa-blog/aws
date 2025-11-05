@@ -8,6 +8,7 @@ BACKUP_SCRIPT_PATH="${BACKUP_DIR}/mysql_backup.sh"
 CONTAINER_NAME="baekgwa-blog-database"
 DB_NAME="baekgwa_blog"
 RETENTION_DAYS=30
+S3_BUCKET="baekgwa-blog-s3-bucket"
 
 # 백업 디렉토리 생성
 mkdir -p "$BACKUP_DIR"
@@ -24,6 +25,7 @@ CONTAINER_NAME="baekgwa-blog-database"
 DB_NAME="baekgwa_blog"
 DATE=$(date +"%Y%m%d")
 RETENTION_DAYS=30
+S3_BUCKET="baekgwa-blog-s3-bucket"
 BACKUP_FILE="${BACKUP_DIR}/${DATE}_backup.sql.gz"
 
 mkdir -p "$BACKUP_DIR"
@@ -43,6 +45,19 @@ fi
 # 30일 이상된 백업 삭제
 find "$BACKUP_DIR" -type f -name "*.sql.gz" -mtime +${RETENTION_DAYS} -delete
 echo "[INFO] Old backups cleaned up"
+
+# S3 업로드
+if command -v aws >/dev/null 2>&1; then
+  echo "[INFO] Uploading backup to S3..."
+  aws s3 cp "$BACKUP_FILE" "s3://${S3_BUCKET}/mysql_backups/" --only-show-errors
+  if [ $? -eq 0 ]; then
+    echo "[SUCCESS] Backup uploaded to S3: s3://${S3_BUCKET}/mysql_backups/$(basename $BACKUP_FILE)"
+  else
+    echo "[ERROR] S3 upload failed" >&2
+  fi
+else
+  echo "[WARNING] AWS CLI not found, skipping S3 upload."
+fi
 EOF
 
 sudo chmod +x $BACKUP_SCRIPT_PATH
