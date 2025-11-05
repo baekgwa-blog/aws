@@ -13,6 +13,7 @@ cat <<EOT > /etc/nginx/sites-available/default
 server {
     listen 80;
     server_name blog.baekgwa.site;
+    client_max_body_size 100M;
 
     location /_next/ {
         proxy_pass http://localhost:3000;
@@ -37,6 +38,7 @@ server {
 server {
     listen 80;
     server_name blog.api.baekgwa.site;
+    client_max_body_size 100M;
 
     location / {
         proxy_pass http://localhost:8080;
