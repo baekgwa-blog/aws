@@ -56,7 +56,8 @@ systemctl reload nginx
 
 # Certbot으로 SSL 인증서 발급 + 자동 nginx 설정
 while true; do
-  certbot --nginx \
+#  certbot --nginx \
+  certbot --nginx --staging \
     -d blog.baekgwa.site \
     -d blog.api.baekgwa.site \
     --non-interactive --agree-tos -m ksu9801@gmail.com && break

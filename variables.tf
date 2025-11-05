@@ -64,3 +64,5 @@ variable "rdbms_username" {}
 variable "rdbms_password" {}
 variable "rdbms_port" {}
 variable "mysql_query_log_path" {}
+variable "redis_password" {}
+variable "redis_port" {}

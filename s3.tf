@@ -1,12 +1,16 @@
 resource "aws_s3_bucket" "my_bucket" {
   bucket = "baekgwa-blog-s3-bucket"
-  force_destroy = true
+  force_destroy = false
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "aws_s3_bucket_public_access_block" "my_bucket_public" {
   bucket                  = aws_s3_bucket.my_bucket.id
-  block_public_policy     = false       # 정책을 통한 퍼블릭 허용
-  restrict_public_buckets = false       # 퍼블릭 정책 자체를 차단하지 않음
+  block_public_policy     = false
+  restrict_public_buckets = false
   block_public_acls       = true
   ignore_public_acls      = true
 }

@@ -18,16 +18,19 @@ resource "aws_instance" "baekgwa_blog_application_server" {
   associate_public_ip_address = false
 
   user_data = templatefile("${path.module}/scripts/user_data.tpl", {
-    install_docker          = file("${path.module}/scripts/install-docker.sh")
-    install_git             = file("${path.module}/scripts/install-git.sh")
-    install_nginx           = file("${path.module}/scripts/install-nginx-ssl.sh")
-    install_mysql           = file("${path.module}/scripts/install-mysql.sh")
+    set_timezone     = file("${path.module}/scripts/set-timezone.sh")
+    install_docker   = file("${path.module}/scripts/install-docker.sh")
+    install_git      = file("${path.module}/scripts/install-git.sh")
+    install_nginx    = file("${path.module}/scripts/install-nginx-ssl.sh")
+    install_database = file("${path.module}/scripts/install-database.sh")
 
-    rdbms_root_password     = var.rdbms_root_password
-    rdbms_username          = var.rdbms_username
-    rdbms_password          = var.rdbms_password
-    rdbms_port              = var.rdbms_port
-    mysql_query_log_path    = var.mysql_query_log_path
+    rdbms_root_password  = var.rdbms_root_password
+    rdbms_username       = var.rdbms_username
+    rdbms_password       = var.rdbms_password
+    rdbms_port           = var.rdbms_port
+    mysql_query_log_path = var.mysql_query_log_path
+    redis_password       = var.redis_password
+    redis_port           = var.redis_port
   })
 
   root_block_device {
