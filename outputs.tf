@@ -12,3 +12,8 @@ output "ssh_connect_command" {
   description = "SSH 접속 명령어"
   value       = "ssh -i ./baekgwa-blog-key.pem ubuntu@${var.fixed_public_ip}"
 }
+
+output "cloud_init_check" {
+  description = "cloud init 확인"
+  value       = "cat /var/log/cloud-init-output.log"
+}
