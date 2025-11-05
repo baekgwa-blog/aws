@@ -16,3 +16,4 @@ ${install_docker}
 ${install_git}
 ${install_nginx}
 ${install_database}
+${register_backup_cron}

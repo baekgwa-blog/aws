@@ -18,11 +18,12 @@ resource "aws_instance" "baekgwa_blog_application_server" {
   associate_public_ip_address = false
 
   user_data = templatefile("${path.module}/scripts/user_data.tpl", {
-    set_timezone     = file("${path.module}/scripts/set-timezone.sh")
-    install_docker   = file("${path.module}/scripts/install-docker.sh")
-    install_git      = file("${path.module}/scripts/install-git.sh")
-    install_nginx    = file("${path.module}/scripts/install-nginx-ssl.sh")
-    install_database = file("${path.module}/scripts/install-database.sh")
+    set_timezone         = file("${path.module}/scripts/set-timezone.sh")
+    install_docker       = file("${path.module}/scripts/install-docker.sh")
+    install_git          = file("${path.module}/scripts/install-git.sh")
+    install_nginx        = file("${path.module}/scripts/install-nginx-ssl.sh")
+    install_database     = file("${path.module}/scripts/install-database.sh")
+    register_backup_cron = file("${path.module}/scripts/register-backup-cron.sh")
 
     rdbms_root_password  = var.rdbms_root_password
     rdbms_username       = var.rdbms_username
