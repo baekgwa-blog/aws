@@ -29,10 +29,34 @@ resource "aws_security_group" "ec2_sg" {
 
   ingress {
     description = "MySQL Access"
-    from_port   = 3360
-    to_port     = 3360
+    from_port   = var.rdbms_port
+    to_port     = var.rdbms_port
     protocol    = "tcp"
     cidr_blocks = var.allowed_http_cidr
+  }
+
+  ingress {
+    description = "Kibana Access (Public)"
+    from_port   = var.kibana_port
+    to_port     = var.kibana_port
+    protocol    = "tcp"
+    cidr_blocks = var.allowed_http_cidr # Kibana는 외부 접속 허용
+  }
+
+  ingress {
+    description = "ElasticSearch Access (Internal SG only)"
+    from_port   = var.elastic_search_port
+    to_port     = var.elastic_search_port
+    protocol    = "tcp"
+    self        = true # 같은 Security Group 내에서만 접속 허용
+  }
+
+  ingress {
+    description = "Logstash Access (Internal SG only)"
+    from_port   = var.logstash_port
+    to_port     = var.logstash_port
+    protocol    = "tcp"
+    self        = true # 같은 Security Group 내에서만 접속 허용
   }
 
   egress {

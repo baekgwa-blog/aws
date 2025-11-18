@@ -1,7 +1,13 @@
-variable "instance_type" {
+variable "instance_application_type" {
   description = "EC2 인스턴스 타입"
   type        = string
   default     = "t3.small"
+}
+
+variable "instance_elk_type" {
+  description = "EC2 인스턴스 타입"
+  type        = string
+  default     = "t3.medium"
 }
 
 variable "key_name" {
@@ -34,16 +40,28 @@ variable "ami_id" {
   default     = "ami-0d5bb3742db8fc264" # 네가 쓴 Ubuntu AMI ID
 }
 
-variable "allocation_id" {
-  description = "수동 발급 Elastic IP의 Allocation ID"
+variable "allocation_application_id" {
+  description = "Application 수동 발급 Elastic IP의 Allocation ID"
   type        = string
   default     = "eipalloc-0901c0f075353fcee"
 }
 
-variable "fixed_public_ip" {
-  description = "고정 퍼블릭 IP 주소"
+variable "allocation_elk_id" {
+  description = "ELK 서버 수동 발급 Elastic IP의 Allocation ID"
+  type        = string
+  default     = "eipalloc-031ba6276e8c79d49"
+}
+
+variable "fixed_application_public_ip" {
+  description = "Application 고정 퍼블릭 IP 주소"
   type        = string
   default     = "13.209.208.83"
+}
+
+variable "fixed_elk_public_ip" {
+  description = "ELK 서버 고정 퍼블릭 IP 주소"
+  type        = string
+  default     = "3.37.42.254"
 }
 
 variable "root_volume_size" {
@@ -66,3 +84,12 @@ variable "rdbms_port" {}
 variable "mysql_query_log_path" {}
 variable "redis_password" {}
 variable "redis_port" {}
+#ELK Server
+variable "elastic_search_port" {}
+variable "kibana_port" {}
+variable "logstash_port" {}
+variable "elasticsearch_username" {}
+variable "elasticsearch_password" {}
+variable "elasticsearch_hosts" {}
+variable "kibana_username" {}
+variable "kibana_password" {}
