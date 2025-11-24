@@ -48,6 +48,27 @@ server {
         proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
         proxy_set_header Cookie \$http_cookie;
     }
+
+    # SSE 스트리밍 엔드포인트
+    location /ai/stream/search {
+        proxy_pass http://localhost:8080;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header Cookie \$http_cookie;
+        proxy_set_header Connection '';
+
+        proxy_buffering off;
+        proxy_cache off;
+        chunked_transfer_encoding off;
+
+        proxy_read_timeout 3600;
+        proxy_send_timeout 3600;
+
+        add_header Cache-Control no-cache;
+    }
 }
 EOT
 
