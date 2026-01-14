@@ -69,6 +69,7 @@ resource "aws_instance" "baekgwa_blog_elk_server" {
     elastic_search_port    = var.elastic_search_port
     kibana_port            = var.kibana_port
     logstash_port          = var.logstash_port
+    apm_server_port        = var.apm_server_port
     elasticsearch_username = var.elasticsearch_username
     elasticsearch_password = var.elasticsearch_password
     elasticsearch_hosts    = var.elasticsearch_hosts

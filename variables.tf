@@ -88,6 +88,7 @@ variable "redis_port" {}
 variable "elastic_search_port" {}
 variable "kibana_port" {}
 variable "logstash_port" {}
+variable "apm_server_port" {}
 variable "elasticsearch_username" {}
 variable "elasticsearch_password" {}
 variable "elasticsearch_hosts" {}

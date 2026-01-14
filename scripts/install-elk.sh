@@ -21,9 +21,9 @@ cd "$PROJECT_DIR"
 
 ## ---------------------------------------------------
 ## TODO: 개발 브랜치 사용 (운영 시 제거 필요)
-git fetch origin
-git checkout feat/elk/setupAndMigrationData || true
-git pull origin feat/elk/setupAndMigrationData || true
+#git fetch origin
+#git checkout feat/elk/setupAndMigrationData || true
+#git pull origin feat/elk/setupAndMigrationData || true
 ## ---------------------------------------------------
 
 ELK_DIR="$PROJECT_DIR/docker/elk"
@@ -36,6 +36,7 @@ cat <<EOF > "$ELK_DIR/.env"
 ELASTIC_SEARCH_PORT=$ELASTIC_SEARCH_PORT
 KIBANA_PORT=$KIBANA_PORT
 LOGSTASH_PORT=$LOGSTASH_PORT
+APM_SERVER_PORT=$APM_SERVER_PORT
 
 # --- Elastic & Kibana Auth ---
 ELASTICSEARCH_USERNAME=$ELASTICSEARCH_USERNAME
