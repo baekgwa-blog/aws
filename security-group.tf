@@ -59,6 +59,22 @@ resource "aws_security_group" "ec2_sg" {
     self        = true # 같은 Security Group 내에서만 접속 허용
   }
 
+  ingress {
+    description = "APM Server Access (Internal SG only)"
+    from_port   = var.elastic_apm_port
+    to_port     = var.elastic_apm_port
+    protocol    = "tcp"
+    self        = true # 같은 Security Group 내에서만 접속 허용
+  }
+
+  ingress {
+    description = "Fleet Server Access (Internal SG only)"
+    from_port   = var.fleet_server_port
+    to_port     = var.fleet_server_port
+    protocol    = "tcp"
+    self        = true # 같은 Security Group 내에서만 접속 허용
+  }
+
   egress {
     description = "Allow all outbound traffic"
     from_port   = 0

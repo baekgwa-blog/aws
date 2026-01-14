@@ -5,10 +5,12 @@ set -e
 export ELASTIC_SEARCH_PORT="${elastic_search_port}"
 export KIBANA_PORT="${kibana_port}"
 export LOGSTASH_PORT="${logstash_port}"
-export APM_SERVER_PORT="${apm_server_port}"
+export ELASTIC_APM_PORT="${elastic_apm_port}"
+export FLEET_SERVER_PORT="${fleet_server_port}"
 export ELASTICSEARCH_USERNAME='${elasticsearch_username}'
 export ELASTICSEARCH_PASSWORD='${elasticsearch_password}'
 export ELASTICSEARCH_HOSTS='${elasticsearch_hosts}'
+export KIBANA_ENCRYPTED_SAVED_OBJECTS_ENCRYPTION_KEY='${kibana_encrypted_saved_objects_encryption_key}'
 export KIBANA_USERNAME='${kibana_username}'
 export KIBANA_PASSWORD='${kibana_password}'
 

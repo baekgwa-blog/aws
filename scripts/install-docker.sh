@@ -10,7 +10,14 @@ apt-get update -y
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Docker Compose 설치
-curl -L "https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+ARCH=$(uname -m)
+if [ "$ARCH" = "aarch64" ]; then
+    COMPOSE_ARCH="aarch64"
+else
+    COMPOSE_ARCH="x86_64"
+fi
+
+curl -L "https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-linux-${COMPOSE_ARCH}" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # docker 그룹에 ubuntu 사용자 추가

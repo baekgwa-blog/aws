@@ -66,15 +66,17 @@ resource "aws_instance" "baekgwa_blog_elk_server" {
     install_nginx  = file("${path.module}/scripts/install-nginx-elk-ssl.sh")
     install_elk    = file("${path.module}/scripts/install-elk.sh")
 
-    elastic_search_port    = var.elastic_search_port
-    kibana_port            = var.kibana_port
-    logstash_port          = var.logstash_port
-    apm_server_port        = var.apm_server_port
-    elasticsearch_username = var.elasticsearch_username
-    elasticsearch_password = var.elasticsearch_password
-    elasticsearch_hosts    = var.elasticsearch_hosts
-    kibana_username        = var.kibana_username
-    kibana_password        = var.kibana_password
+    elastic_search_port                           = var.elastic_search_port
+    kibana_port                                   = var.kibana_port
+    logstash_port                                 = var.logstash_port
+    elastic_apm_port                              = var.elastic_apm_port
+    fleet_server_port                             = var.fleet_server_port
+    elasticsearch_username                        = var.elasticsearch_username
+    elasticsearch_password                        = var.elasticsearch_password
+    elasticsearch_hosts                           = var.elasticsearch_hosts
+    kibana_username                               = var.kibana_username
+    kibana_password                               = var.kibana_password
+    kibana_encrypted_saved_objects_encryption_key = var.kibana_encrypted_saved_objects_encryption_key
   })
 
   root_block_device {

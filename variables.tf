@@ -1,13 +1,13 @@
 variable "instance_application_type" {
   description = "EC2 인스턴스 타입"
   type        = string
-  default     = "t3.small"
+  default     = "t4g.small"
 }
 
 variable "instance_elk_type" {
   description = "EC2 인스턴스 타입"
   type        = string
-  default     = "t3.medium"
+  default     = "t4g.large"
 }
 
 variable "key_name" {
@@ -37,7 +37,7 @@ variable "allowed_http_cidr" {
 variable "ami_id" {
   description = "EC2 인스턴스에 사용할 AMI ID"
   type        = string
-  default     = "ami-0d5bb3742db8fc264" # 네가 쓴 Ubuntu AMI ID
+  default     = "ami-066f9893a857529ea"
 }
 
 variable "allocation_application_id" {
@@ -88,9 +88,11 @@ variable "redis_port" {}
 variable "elastic_search_port" {}
 variable "kibana_port" {}
 variable "logstash_port" {}
-variable "apm_server_port" {}
+variable "elastic_apm_port" {}
+variable "fleet_server_port" {}
 variable "elasticsearch_username" {}
 variable "elasticsearch_password" {}
 variable "elasticsearch_hosts" {}
 variable "kibana_username" {}
 variable "kibana_password" {}
+variable "kibana_encrypted_saved_objects_encryption_key" {}

@@ -36,7 +36,8 @@ cat <<EOF > "$ELK_DIR/.env"
 ELASTIC_SEARCH_PORT=$ELASTIC_SEARCH_PORT
 KIBANA_PORT=$KIBANA_PORT
 LOGSTASH_PORT=$LOGSTASH_PORT
-APM_SERVER_PORT=$APM_SERVER_PORT
+ELASTIC_APM_PORT=$ELASTIC_APM_PORT
+FLEET_SERVER_PORT=$FLEET_SERVER_PORT
 
 # --- Elastic & Kibana Auth ---
 ELASTICSEARCH_USERNAME=$ELASTICSEARCH_USERNAME
@@ -45,6 +46,9 @@ ELASTICSEARCH_HOSTS=$ELASTICSEARCH_HOSTS
 
 KIBANA_USERNAME=$KIBANA_USERNAME
 KIBANA_PASSWORD=$KIBANA_PASSWORD
+KIBANA_ENCRYPTED_SAVED_OBJECTS_ENCRYPTION_KEY=$KIBANA_ENCRYPTED_SAVED_OBJECTS_ENCRYPTION_KEY
+FLEET_SERVER_SERVICE_TOKEN=NEED_TO_CHANGE #Kibana 를 통해 수동으로 발급받아 치환하시오
+FLEET_ENROLLMENT_TOKEN=NEED_TO_CHANGE #Kibana 를 통해 수동으로 발급받아 치환하시오
 EOF
 
 echo "[INFO] $ELK_DIR/.env 파일 생성 완료"
@@ -54,6 +58,7 @@ cd "$ELK_DIR"
 
 echo "[INFO] Docker Compose 실행..."
 docker-compose -f elk-docker-compose.yml down --remove-orphans || true
-docker-compose -f elk-docker-compose.yml up -d
+docker-compose -f elk-docker-compose.yml up -d elasticsearch kibana logstash
 
 echo "[SUCCESS] ELK Docker 컨테이너가 성공적으로 실행되었습니다"
+echo "[INFO] 단, Elastic Agent 는 Kibana 를 통해 수동으로 연결 설정을 진행 후, up 하시기 바랍니다. FLEET_SERVER_SERVICE_TOKEN, FLEET_ENROLLMENT_TOKEN 발급 필요."

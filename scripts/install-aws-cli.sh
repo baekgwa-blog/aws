@@ -5,14 +5,22 @@ echo "[INFO] AWS CLI 설치 스크립트 시작"
 
 # 1. AWS CLI 최신 버전 설치 (Ubuntu/Debian 기준)
 if ! command -v aws >/dev/null 2>&1; then
-  echo "[INFO] AWS CLI 설치 중..."
   apt-get update -y
   apt-get install -y unzip curl
-  curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+
+  # 아키텍처에 따라 다운로드 경로 분기
+  ARCH=$(uname -m)
+  if [ "$ARCH" = "x86_64" ]; then
+    URL="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+  else
+    URL="https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip"
+  fi
+
+  curl "$URL" -o "/tmp/awscliv2.zip"
   unzip -o /tmp/awscliv2.zip -d /tmp
-  /tmp/aws/install
+  sudo /tmp/aws/install
 else
-  echo "[INFO] AWS CLI는 이미 설치됨"
+  echo "[INFO] AWS CLI 이미 설치됨"
 fi
 
 # 2. AWS CLI 버전 확인
